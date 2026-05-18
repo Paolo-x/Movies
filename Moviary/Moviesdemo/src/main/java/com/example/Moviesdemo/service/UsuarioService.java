@@ -3,6 +3,7 @@ package com.example.Moviesdemo.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.example.Moviesdemo.dto.UsuarioResponseDTO;
 import com.example.Moviesdemo.model.Usuario;
 import com.example.Moviesdemo.repository.UsuarioRepository;
 
@@ -14,13 +15,12 @@ public class UsuarioService {
     @Autowired
     private UsuarioRepository usuarioRepository;
 
-    public Usuario agregarUsuario(Usuario usuario){ //Agregar usuario
-
-        return usuarioRepository.save(usuario);
+    public UsuarioResponseDTO agregarUsuario(Usuario usuario){
+        return mapearADTO(usuarioRepository.save(usuario));
     }
 
-    public List<Usuario> listarUsuarios() { //Listar Usuarios
-        return usuarioRepository.findAll();
+    public List<UsuarioResponseDTO> listarUsuarios() {
+        return usuarioRepository.findAll().stream().map(this::mapearADTO).toList();
     }
 
   public void deleteUsuarioUsername(String username){ //Eliminar usuario por username
@@ -31,11 +31,11 @@ public class UsuarioService {
         usuarioRepository.deleteByCorreo(correo);
     }
 
-    public Usuario obtenerUsuarioPorId(Long id) { //Obtene Usuairo por id
-        return usuarioRepository.findById(id).orElse(null);
+    public UsuarioResponseDTO obtenerUsuarioPorId(Long id) {
+        return usuarioRepository.findById(id).map(this::mapearADTO).orElse(null);
     }
 
-        public Usuario actualizarUsuario(Long id, Usuario usuarioActualizado) { //Actualizar Usuarios - (username-correo-contraseña)
+        public UsuarioResponseDTO actualizarUsuario(Long id, Usuario usuarioActualizado) {
         Usuario usuario = usuarioRepository.findById(id).orElse(null);
         if (usuario == null) return null;
 
@@ -43,13 +43,11 @@ public class UsuarioService {
        usuario.setCorreo(usuarioActualizado.getCorreo());
        usuario.setContrasena(usuarioActualizado.getContrasena());
 
-        return usuarioRepository.save(usuario);
+        return mapearADTO(usuarioRepository.save(usuario));
     }
 
-
-
-
-
-    //public boolean existeUsuario(Long id) // ver si el usuario Existe
+    private UsuarioResponseDTO mapearADTO(Usuario usuario) {
+        return new UsuarioResponseDTO(usuario.getId(), usuario.getUsername(), usuario.getCorreo(), usuario.getFechaRegistro());
+    }
     
 }
