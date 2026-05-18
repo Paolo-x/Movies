@@ -1,9 +1,10 @@
-package com.example.Moviesdemo.Repository;
+package com.example.Moviesdemo.repository;
 
 
-import com.example.Moviesdemo.Model.Usuario;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
+
+import com.example.Moviesdemo.model.Usuario;
 
 @Repository
 public interface UsuarioRepository extends JpaRepository<Usuario, Long> {

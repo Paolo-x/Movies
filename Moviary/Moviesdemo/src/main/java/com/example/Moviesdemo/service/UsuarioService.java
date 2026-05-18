@@ -1,10 +1,10 @@
-package com.example.Moviesdemo.Service;
+package com.example.Moviesdemo.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.example.Moviesdemo.Model.Usuario;
-import com.example.Moviesdemo.Repository.UsuarioRepository;
 
+import com.example.Moviesdemo.model.Usuario;
+import com.example.Moviesdemo.repository.UsuarioRepository;
 
 import java.util.List;
 

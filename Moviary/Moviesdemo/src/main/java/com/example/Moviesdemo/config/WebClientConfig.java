@@ -1,4 +1,4 @@
-package com.example.Moviesdemo.Config;
+package com.example.Moviesdemo.config;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;

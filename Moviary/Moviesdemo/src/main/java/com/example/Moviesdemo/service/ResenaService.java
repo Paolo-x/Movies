@@ -1,10 +1,10 @@
-package com.example.Moviesdemo.Service;
+package com.example.Moviesdemo.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.example.Moviesdemo.Model.Resena;
-import com.example.Moviesdemo.Repository.ResenaRepository;
+import com.example.Moviesdemo.model.Resena;
+import com.example.Moviesdemo.repository.ResenaRepository;
 
 import java.util.List;
 

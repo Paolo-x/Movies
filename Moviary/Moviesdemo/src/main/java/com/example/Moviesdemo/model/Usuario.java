@@ -1,4 +1,4 @@
-package com.example.Moviesdemo.Model;
+package com.example.Moviesdemo.model;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
