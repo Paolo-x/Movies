@@ -31,6 +31,13 @@ public class ResenaController {
         return ResponseEntity.ok(resenaService.listResenas());
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<Resena> obtenerResenaPorId(@PathVariable Long id) { //Busca reseña por su ID
+        Resena resena = resenaService.obtenerResenaPorId(id);
+        if (resena == null) return ResponseEntity.notFound().build();
+        return ResponseEntity.ok(resena);
+    }
+
     @PostMapping
     public ResponseEntity<Resena> agregarResena(@Valid @RequestBody Resena resena) {
         return ResponseEntity.status(HttpStatus.CREATED).body(resenaService.agregarResena(resena));
