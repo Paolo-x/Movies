@@ -2,6 +2,7 @@ package com.example.Moviesdemo.model;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -39,8 +40,9 @@ public class Pelicula {
     @NotNull
     private Integer fechaEstreno;
 
-    @OneToMany
-    private List<Resena> listaResenas ; 
+    @OneToMany(mappedBy = "pelicula", cascade = CascadeType.ALL, orphanRemoval = true) // Una pelicula tiene muchas resenas, usa la FK "pelicula_id" de Resena
+    @JsonIgnore // Evita loop infinito al serializar JSON (Pelicula -> Resena -> Pelicula -> ...)
+    private List<Resena> listaResenas;
 
 
 }

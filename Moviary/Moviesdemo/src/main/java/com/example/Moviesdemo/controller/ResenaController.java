@@ -1,5 +1,7 @@
 package com.example.Moviesdemo.controller;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,35 +25,48 @@ import java.util.List;
 @RequestMapping("/api/v1/resenas")
 public class ResenaController {
 
+    private static final Logger log = LoggerFactory.getLogger(ResenaController.class); // Logger SLF4J
+
     @Autowired
     private ResenaService resenaService;
 
     @GetMapping
     public ResponseEntity<List<Resena>> listarResenas() {
+        log.info("listarResenas"); // Log al listar todas las resenas
         return ResponseEntity.ok(resenaService.listResenas());
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<Resena> obtenerResenaPorId(@PathVariable Long id) { //Busca reseña por su ID
+        log.info("obtenerResenaPorId id={}", id); // Log con el id de la resena
         Resena resena = resenaService.obtenerResenaPorId(id);
-        if (resena == null) return ResponseEntity.notFound().build();
+        if (resena == null) {
+            log.warn("Resena no encontrada id={}", id);
+            return ResponseEntity.notFound().build();
+        }
         return ResponseEntity.ok(resena);
     }
 
     @PostMapping
     public ResponseEntity<Resena> agregarResena(@Valid @RequestBody Resena resena) {
+        log.info("agregarResena calificacion={}", resena.getCalificacion()); // Log al crear resena
         return ResponseEntity.status(HttpStatus.CREATED).body(resenaService.agregarResena(resena));
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<Resena> actualizarComentario(@PathVariable Long id, @Valid @RequestBody Resena resena) {
+        log.info("actualizarComentario id={}", id); // Log al actualizar resena
         Resena actualizada = resenaService.actualizarResena(id, resena);
-        if (actualizada == null) return ResponseEntity.notFound().build();
+        if (actualizada == null) {
+            log.warn("Resena no encontrada para actualizar id={}", id);
+            return ResponseEntity.notFound().build();
+        }
         return ResponseEntity.ok(actualizada);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> eliminarResena(@PathVariable Long id) {
+        log.info("eliminarResena id={}", id); // Log al eliminar resena
         resenaService.deleteResena(id);
         return ResponseEntity.noContent().build();
     }

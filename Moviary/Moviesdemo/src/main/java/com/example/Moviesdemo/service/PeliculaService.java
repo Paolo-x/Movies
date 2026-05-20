@@ -44,7 +44,7 @@ public class PeliculaService {
         pelicula.setDuracion(peliculaActualizada.getDuracion());
         pelicula.setGenero(peliculaActualizada.getGenero());
         pelicula.setSinopsis(peliculaActualizada.getSinopsis());
-        pelicula.setFechaEstreno(pelicula.getFechaEstreno());
+        pelicula.setFechaEstreno(peliculaActualizada.getFechaEstreno());
 
         return peliculaRepository.save(pelicula);
     }
