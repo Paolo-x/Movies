@@ -2,6 +2,7 @@ package com.example.Moviesdemo.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.example.Moviesdemo.dto.UsuarioResponseDTO;
 import com.example.Moviesdemo.model.Usuario;
@@ -23,10 +24,12 @@ public class UsuarioService {
         return usuarioRepository.findAll().stream().map(this::mapearADTO).toList();
     }
 
+  @Transactional //Necesario para deleteByUsername (derived query)
   public void deleteUsuarioUsername(String username){ //Eliminar usuario por username
         usuarioRepository.deleteByUsername(username);
     }
 
+     @Transactional //Necesario para deleteByCorreo (derived query)
      public void deleteUsuarioCorreo(String correo){ //Eliminar usuario por correo
         usuarioRepository.deleteByCorreo(correo);
     }
