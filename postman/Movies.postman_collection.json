@@ -167,7 +167,7 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"username\": \"{{usuario_username_ejemplo}}\",\n  \"correo\": \"{{usuario_correo_ejemplo}}\",\n  \"contrasena\": \"nuevaContrasena123\",\n  \"fechaRegistro\": 2026\n}"
+              "raw": "{\n  \"username\": \"{{usuario_username_ejemplo}}\",\n  \"correo\": \"{{usuario_correo_ejemplo}}\",\n  \"contrasena\": \"{{usuario_contrasena_ejemplo}}\"\n}"
             },
             "url": "http://localhost:8080/api/v1/usuarios/{{usuario_id_ejemplo}}"
           }
@@ -213,6 +213,7 @@
     { "key": "pelicula_id_ejemplo", "value": "1", "type": "string" },
     { "key": "resena_id_ejemplo", "value": "1", "type": "string" },
     { "key": "usuario_username_ejemplo", "value": "Paolo", "type": "string" },
-    { "key": "usuario_correo_ejemplo", "value": "paol.munozm@duocuc.cl", "type": "string" }
+    { "key": "usuario_correo_ejemplo", "value": "paolo.munozm@duocuc.cl", "type": "string" },
+    { "key": "usuario_contrasena_ejemplo", "value": "nuevaContrasena12333333", "type": "string" }
   ]
 }
