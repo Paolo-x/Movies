@@ -36,7 +36,7 @@ public class Resena {
 
     @ManyToOne // Muchas resenas pertenecen a un solo usuario
     @JoinColumn(name = "usuario_id", nullable = false) // FK hacia la tabla usuario
-    @JsonIgnoreProperties({"contrasena"}) // Muestra usuario pero oculta la contrasena
+    @JsonIgnoreProperties({"contrasena", "resenas"}) // bug
     private Usuario usuario;
 
     @ManyToOne // Muchas resenas pertenecen a una sola pelicula
