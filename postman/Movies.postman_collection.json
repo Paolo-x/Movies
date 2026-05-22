@@ -1,7 +1,7 @@
 {
   "info": {
-    "name": "Movies - Moviary",
-    "description": "Coleccion de endpoints para el proyecto Movies (Moviary).\n\nAutor: Paolo Munoz",
+    "name": "Movies - Moviary (Dinamico)",
+    "description": "Coleccion dinamica de endpoints para el proyecto Movies (Moviary).\n\nAutor: Paolo Munoz",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
   },
   "item": [
@@ -19,7 +19,7 @@
           "name": "Obtener pelicula por ID",
           "request": {
             "method": "GET",
-            "url": "http://localhost:8080/api/v1/peliculas/1"
+            "url": "http://localhost:8080/api/v1/peliculas/{{pelicula_id_ejemplo}}"
           }
         },
         {
@@ -59,16 +59,16 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"titulo\": \"Scream\",\n  \"anio\": 1996,\n  \"duracion\": 111,\n  \"genero\": \"terror\",\n  \"sinopsis\": \"La historia sigue a Sidney Prescott, una joven acechada por Ghostface, un asesino enmascarado que utiliza las reglas de las peliculas de terror para aterrorizar a su grupo de amigos en un pequeno pueblo.\",\n  \"fechaEstreno\": 1996\n}"
+              "raw": "{\n  \"titulo\": \"Scream Editada\",\n  \"anio\": 1996,\n  \"duracion\": 111,\n  \"genero\": \"terror\",\n  \"sinopsis\": \"Sinopsis modificada para pruebas.\",\n  \"fechaEstreno\": 1996\n}"
             },
-            "url": "http://localhost:8080/api/v1/peliculas/1"
+            "url": "http://localhost:8080/api/v1/peliculas/{{pelicula_id_ejemplo}}"
           }
         },
         {
           "name": "Eliminar pelicula",
           "request": {
             "method": "DELETE",
-            "url": "http://localhost:8080/api/v1/peliculas/1"
+            "url": "http://localhost:8080/api/v1/peliculas/{{pelicula_id_ejemplo}}"
           }
         }
       ]
@@ -87,7 +87,7 @@
           "name": "Obtener resena por ID",
           "request": {
             "method": "GET",
-            "url": "http://localhost:8080/api/v1/resenas/1"
+            "url": "http://localhost:8080/api/v1/resenas/{{resena_id_ejemplo}}"
           }
         },
         {
@@ -99,27 +99,13 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"calificacion\": 10,\n  \"comentario\": \"Muy buena peli, una de las mejores de su genero\",\n  \"fechaResena\": 20240521,\n  \"usuario\": { \"id\": 2 },\n  \"pelicula\": { \"id\": 1 }\n}"
+              "raw": "{\n  \"calificacion\": 10,\n  \"comentario\": \"Muy buena peli, una de las mejores de su genero\",\n  \"fechaResena\": 20240521,\n  \"usuario\": { \"id\": {{usuario_id_ejemplo}} },\n  \"pelicula\": { \"id\": {{pelicula_id_ejemplo}} }\n}"
             },
             "url": "http://localhost:8080/api/v1/resenas"
           }
         },
         {
-          "name": "Crear resena - Memento (Alex)",
-          "request": {
-            "method": "POST",
-            "header": [
-              { "key": "Content-Type", "value": "application/json" }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"calificacion\": 10,\n  \"comentario\": \"En mi gusto personal es la mejor pelicula de Nolan\",\n  \"fechaResena\": 20240521,\n  \"usuario\": { \"id\": 3 },\n  \"pelicula\": { \"id\": 2 }\n}"
-            },
-            "url": "http://localhost:8080/api/v1/resenas"
-          }
-        },
-{
-          "name": "Actualizar reseña",
+          "name": "Actualizar resena",
           "request": {
             "method": "PUT",
             "header": [
@@ -129,14 +115,14 @@
               "mode": "raw",
               "raw": "{\n  \"calificacion\": 9,\n  \"comentario\": \"Sigue siendo excelente, pero le bajo un punto\",\n  \"fechaResena\": 20240521\n}"
             },
-            "url": "http://localhost:8080/api/v1/resenas/1"
+            "url": "http://localhost:8080/api/v1/resenas/{{resena_id_ejemplo}}"
           }
         },
         {
           "name": "Eliminar resena",
           "request": {
             "method": "DELETE",
-            "url": "http://localhost:8080/api/v1/resenas/1"
+            "url": "http://localhost:8080/api/v1/resenas/{{resena_id_ejemplo}}"
           }
         }
       ]
@@ -155,7 +141,7 @@
           "name": "Obtener usuario por ID",
           "request": {
             "method": "GET",
-            "url": "http://localhost:8080/api/v1/usuarios/1"
+            "url": "http://localhost:8080/api/v1/usuarios/{{usuario_id_ejemplo}}"
           }
         },
         {
@@ -167,21 +153,7 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"username\": \"Paolo\",\n  \"correo\": \"paol.munozm@duocuc.cl\",\n  \"contrasena\": \"12345678P\",\n  \"fechaRegistro\": 2026\n}"
-            },
-            "url": "http://localhost:8080/api/v1/usuarios"
-          }
-        },
-        {
-          "name": "Crear usuario - Alex",
-          "request": {
-            "method": "POST",
-            "header": [
-              { "key": "Content-Type", "value": "application/json" }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"username\": \"alex\",\n  \"correo\": \"alex@hotmail.com\",\n  \"contrasena\": \"123456789A\",\n  \"fechaRegistro\": 2026\n}"
+              "raw": "{\n  \"username\": \"{{usuario_username_ejemplo}}\",\n  \"correo\": \"{{usuario_correo_ejemplo}}\",\n  \"contrasena\": \"12345678P\",\n  \"fechaRegistro\": 2026\n}"
             },
             "url": "http://localhost:8080/api/v1/usuarios"
           }
@@ -195,23 +167,23 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"username\": \"Paolo\",\n  \"correo\": \"paol.munozm@duocuc.cl\",\n  \"contrasena\": \"nuevaContrasena123\",\n  \"fechaRegistro\": 2026\n}"
+              "raw": "{\n  \"username\": \"{{usuario_username_ejemplo}}\",\n  \"correo\": \"{{usuario_correo_ejemplo}}\",\n  \"contrasena\": \"nuevaContrasena123\",\n  \"fechaRegistro\": 2026\n}"
             },
-            "url": "http://localhost:8080/api/v1/usuarios/1"
+            "url": "http://localhost:8080/api/v1/usuarios/{{usuario_id_ejemplo}}"
           }
         },
         {
           "name": "Eliminar usuario por username",
           "request": {
             "method": "DELETE",
-            "url": "http://localhost:8080/api/v1/usuarios/username/Paolo"
+            "url": "http://localhost:8080/api/v1/usuarios/username/{{usuario_username_ejemplo}}"
           }
         },
         {
           "name": "Eliminar usuario por correo",
           "request": {
             "method": "DELETE",
-            "url": "http://localhost:8080/api/v1/usuarios/correo/paol.munozm@duocuc.cl"
+            "url": "http://localhost:8080/api/v1/usuarios/correo/{{usuario_correo_ejemplo}}"
           }
         }
       ]
@@ -235,5 +207,12 @@
         }
       ]
     }
+  ],
+  "variable": [
+    { "key": "usuario_id_ejemplo", "value": "1", "type": "string" },
+    { "key": "pelicula_id_ejemplo", "value": "1", "type": "string" },
+    { "key": "resena_id_ejemplo", "value": "1", "type": "string" },
+    { "key": "usuario_username_ejemplo", "value": "Paolo", "type": "string" },
+    { "key": "usuario_correo_ejemplo", "value": "paol.munozm@duocuc.cl", "type": "string" }
   ]
 }
