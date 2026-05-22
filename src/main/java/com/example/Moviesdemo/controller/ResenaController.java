@@ -30,30 +30,30 @@ public class ResenaController {
     @Autowired
     private ResenaService resenaService;
 
-    @GetMapping
+    @GetMapping // Para obtener la lista de todas las resenas
     public ResponseEntity<List<Resena>> listarResenas() {
         log.info("listarResenas"); // Log al listar todas las resenas
         return ResponseEntity.ok(resenaService.listResenas());
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/{id}") // Para obtener una resena especifica por su ID
     public ResponseEntity<Resena> obtenerResenaPorId(@PathVariable Long id) { //Busca reseña por su ID
         log.info("obtenerResenaPorId id={}", id); // Log con el id de la resena
         Resena resena = resenaService.obtenerResenaPorId(id);
         if (resena == null) {
-            log.warn("Resena no encontrada id={}", id);
+            log.warn("Resena no encontrada id={}", id); // log de advertensia si la reseña no existe
             return ResponseEntity.notFound().build();
         }
         return ResponseEntity.ok(resena);
     }
 
-    @PostMapping
+    @PostMapping // Para crear y guardar una nueva resena
     public ResponseEntity<Resena> agregarResena(@Valid @RequestBody Resena resena) {
         log.info("agregarResena calificacion={}", resena.getCalificacion()); // Log al crear resena
         return ResponseEntity.status(HttpStatus.CREATED).body(resenaService.agregarResena(resena));
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/{id}") // Para actualizar el comentario o calificacion de una resena por su ID
     public ResponseEntity<Resena> actualizarComentario(@PathVariable Long id, @Valid @RequestBody Resena resena) {
         log.info("actualizarComentario id={}", id); // Log al actualizar resena
         Resena actualizada = resenaService.actualizarResena(id, resena);
@@ -64,7 +64,7 @@ public class ResenaController {
         return ResponseEntity.ok(actualizada);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/{id}") // Para eliminar una resena de la base de datos por su ID
     public ResponseEntity<Void> eliminarResena(@PathVariable Long id) {
         log.info("eliminarResena id={}", id); // Log al eliminar resena
         resenaService.deleteResena(id);

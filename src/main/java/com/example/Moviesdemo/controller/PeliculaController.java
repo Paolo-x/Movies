@@ -30,13 +30,13 @@ public class PeliculaController {
     @Autowired
     private PeliculaService peliculaService;
 
-    @GetMapping
+    @GetMapping // para obtener la lista de todas las peliculas
     public ResponseEntity<List<Pelicula>> listarPeliculas() {
         log.info("listarPeliculas"); // Log de info al listar peliculas
         return ResponseEntity.ok(peliculaService.listarPeliculas());
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/{id}") // Para obtener una pelicula especifica por su ID
     public ResponseEntity<Pelicula> obtenerPorId(@PathVariable Long id) {
         log.info("obtenerPorId id={}", id); // Log con el id recibido
         Pelicula pelicula = peliculaService.obtenerPeliculaPorId(id);
@@ -47,24 +47,24 @@ public class PeliculaController {
         return ResponseEntity.ok(pelicula);
     }
 
-    @PostMapping
+    @PostMapping // Para crear y guardar una nueva pelicula
     public ResponseEntity<Pelicula> agregarPelicula(@Valid @RequestBody Pelicula pelicula) {
         log.info("agregarPelicula titulo={}", pelicula.getTitulo()); // Log del titulo de la pelicula creada
         return ResponseEntity.status(HttpStatus.CREATED).body(peliculaService.agregarPelicula(pelicula));
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/{id}") // Para actualizar los datos de una pelicula existente por su ID
     public ResponseEntity<Pelicula> actualizarPelicula(@PathVariable Long id, @Valid @RequestBody Pelicula pelicula) {
         log.info("actualizarPelicula id={}", id); // Log al actualizar pelicula
         Pelicula actualizada = peliculaService.actualizarPelicula(id, pelicula);
         if (actualizada == null) {
-            log.warn("Pelicula no encontrada para actualizar id={}", id);
+            log.warn("Pelicula no encontrada para actualizar id={}", id); // Log de advertencia si no existe para actualizar
             return ResponseEntity.notFound().build();
         }
         return ResponseEntity.ok(actualizada);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/{id}") // Para eliminar una pelicula de la base de datos por su ID
     public ResponseEntity<Void> eliminarPelicula(@PathVariable Long id) {
         log.info("eliminarPelicula id={}", id); // Log al eliminar pelicula
         peliculaService.deletePelicula(id);

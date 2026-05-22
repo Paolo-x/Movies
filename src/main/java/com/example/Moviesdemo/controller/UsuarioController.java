@@ -24,35 +24,35 @@ public class UsuarioController {
     @Autowired
     private UsuarioService usuarioService;
 
-    @GetMapping
+    @GetMapping // Para obtener la lista de todos los usuarios (usando DTO para ocultar datos sensibles)
     public ResponseEntity<List<UsuarioResponseDTO>> listarUsuarios() {
         log.info("listarUsuarios"); // Log al listar usuarios
         return ResponseEntity.ok(usuarioService.listarUsuarios());
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<UsuarioResponseDTO> obtenerUsuarioPorId(@PathVariable Long id) {
+    @GetMapping("/{id}")// Para obtener un usuario especifico por su ID
+    public ResponseEntity<UsuarioResponseDTO> obtenerUsuarioPorId(@PathVariable Long id) { // Para obtener un usuario especifico por su ID
         log.info("obtenerUsuarioPorId id={}", id); // Log con id del usuario
         UsuarioResponseDTO usuario = usuarioService.obtenerUsuarioPorId(id);
         if (usuario == null) {
-            log.warn("Usuario no encontrado id={}", id);
+            log.warn("Usuario no encontrado id={}", id); // Log de advertencia si el usuario no existe
             return ResponseEntity.notFound().build();
         }
         return ResponseEntity.ok(usuario);
     }
 
-    @PostMapping
+    @PostMapping // Para registrar y guardar un nuevo usuario en el sistema
     public ResponseEntity<UsuarioResponseDTO> agregarUsuario(@Valid @RequestBody Usuario usuario) {
         log.info("agregarUsuario username={}", usuario.getUsername()); // Log del username creado
         return ResponseEntity.status(HttpStatus.CREATED).body(usuarioService.agregarUsuario(usuario));
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/{id}") // Para actualizar los datos de un usuario existente por su ID
     public ResponseEntity<UsuarioResponseDTO> actualizarUsuario(@PathVariable Long id, @Valid @RequestBody Usuario usuario) {
         log.info("actualizarUsuario id={}", id); // Log al actualizar usuario
         UsuarioResponseDTO actualizado = usuarioService.actualizarUsuario(id, usuario);
         if (actualizado == null) {
-            log.warn("Usuario no encontrado para actualizar id={}", id);
+            log.warn("Usuario no encontrado para actualizar id={}", id); // Log de advertencia si el usuario no existe para actualizar
             return ResponseEntity.notFound().build();
         }
         return ResponseEntity.ok(actualizado);
