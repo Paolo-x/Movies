@@ -1,5 +1,6 @@
 package com.example.Moviesdemo.exception;
 
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -74,6 +75,13 @@ public class GlobalExceptionHandler {
         }
         ApiError error = new ApiError(409, "Conflicto", mensaje);
         return ResponseEntity.status(HttpStatus.CONFLICT).body(error);
+    }
+
+    @ExceptionHandler(EntityNotFoundException.class)
+    public ResponseEntity<ApiError> handleEntityNotFound(EntityNotFoundException ex) {
+        //error 404: el recurso solicitado no existe (usuario no encontrado para eliminar)
+        ApiError error = new ApiError(404, "Recurso no encontrado", ex.getMessage());
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error);
     }
 
     @ExceptionHandler(Exception.class)

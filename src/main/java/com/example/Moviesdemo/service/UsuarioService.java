@@ -8,6 +8,8 @@ import com.example.Moviesdemo.dto.UsuarioResponseDTO;
 import com.example.Moviesdemo.model.Usuario;
 import com.example.Moviesdemo.repository.UsuarioRepository;
 
+import jakarta.persistence.EntityNotFoundException;
+
 import java.util.List;
 
 @Service
@@ -24,14 +26,20 @@ public class UsuarioService {
         return usuarioRepository.findAll().stream().map(this::mapearADTO).toList();
     }
 
-  @Transactional //Necesario para deleteByUsername (derived query)
-  public void deleteUsuarioUsername(String username){ //Eliminar usuario por username
-        usuarioRepository.deleteByUsername(username);
+    @Transactional
+    public void deleteUsuarioUsername(String username) {
+        // Busca el usuario por username, si no existe lanza EntityNotFoundException (404)
+        Usuario usuario = usuarioRepository.findByUsername(username)
+                .orElseThrow(() -> new EntityNotFoundException("Usuario no encontrado con username: " + username));
+        usuarioRepository.delete(usuario); // Al borrar el usuario, cascade borra sus reseñas automaticamente
     }
 
-     @Transactional //Necesario para deleteByCorreo (derived query)
-     public void deleteUsuarioCorreo(String correo){ //Eliminar usuario por correo
-        usuarioRepository.deleteByCorreo(correo);
+    @Transactional
+    public void deleteUsuarioCorreo(String correo) {
+        // Busca el usuario por correo, si no existe lanza EntityNotFoundException (404)
+        Usuario usuario = usuarioRepository.findByCorreo(correo)
+                .orElseThrow(() -> new EntityNotFoundException("Usuario no encontrado con correo: " + correo));
+        usuarioRepository.delete(usuario); // Al borrar el usuario, cascade borra sus reseñas automaticamente
     }
 
     public UsuarioResponseDTO obtenerUsuarioPorId(Long id) {
