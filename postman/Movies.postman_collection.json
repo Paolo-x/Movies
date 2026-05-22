@@ -1,29 +1,29 @@
 {
   "info": {
     "name": "Movies - Moviary",
-    "description": "Colección de endpoints para el proyecto Movies (Moviary).\n\nAutor: Paolo Muñoz",
+    "description": "Coleccion de endpoints para el proyecto Movies (Moviary).\n\nAutor: Paolo Munoz",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
   },
   "item": [
     {
-      "name": "Películas",
+      "name": "Peliculas",
       "item": [
         {
-          "name": "Listar películas",
+          "name": "Listar peliculas",
           "request": {
             "method": "GET",
             "url": "http://localhost:8080/api/v1/peliculas"
           }
         },
         {
-          "name": "Obtener película por ID",
+          "name": "Obtener pelicula por ID",
           "request": {
             "method": "GET",
             "url": "http://localhost:8080/api/v1/peliculas/1"
           }
         },
         {
-          "name": "Crear película - Scream",
+          "name": "Crear pelicula - Scream",
           "request": {
             "method": "POST",
             "header": [
@@ -31,13 +31,13 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"titulo\": \"Scream\",\n  \"anio\": 1996,\n  \"duracion\": 111,\n  \"genero\": \"terror\",\n  \"sinopsis\": \"La historia sigue a Sidney Prescott, una joven acechada por Ghostface, un asesino enmascarado que utiliza las reglas de las películas de terror para aterrorizar a su grupo de amigos en un pequeño pueblo.\",\n  \"fechaEstreno\": 1996\n}"
+              "raw": "{\n  \"titulo\": \"Scream\",\n  \"anio\": 1996,\n  \"duracion\": 111,\n  \"genero\": \"terror\",\n  \"sinopsis\": \"La historia sigue a Sidney Prescott, una joven acechada por Ghostface, un asesino enmascarado que utiliza las reglas de las peliculas de terror para aterrorizar a su grupo de amigos en un pequeno pueblo.\",\n  \"fechaEstreno\": 1996\n}"
             },
             "url": "http://localhost:8080/api/v1/peliculas"
           }
         },
         {
-          "name": "Crear película - Memento",
+          "name": "Crear pelicula - Memento",
           "request": {
             "method": "POST",
             "header": [
@@ -45,13 +45,13 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"titulo\": \"Memento\",\n  \"anio\": 2000,\n  \"duracion\": 113,\n  \"genero\": \"thriller\",\n  \"sinopsis\": \"Narra la historia de Leonard, un ex investigador de seguros que sufre de amnesia anterógrada tras un ataque en el que su esposa fue asesinada. Para encontrar al culpable, Leonard sobrevive usando fotografías instantáneas y tatuajes en su cuerpo que registran las pistas.\",\n  \"fechaEstreno\": 2000\n}"
+              "raw": "{\n  \"titulo\": \"Memento\",\n  \"anio\": 2000,\n  \"duracion\": 113,\n  \"genero\": \"thriller\",\n  \"sinopsis\": \"Narra la historia de Leonard, un ex investigador de seguros que sufre de amnesia anterograda tras un ataque en el que su esposa fue asesinada. Para encontrar al culpable, Leonard sobrevive usando fotografias instantaneas y tatuajes en su cuerpo que registran las pistas.\",\n  \"fechaEstreno\": 2000\n}"
             },
             "url": "http://localhost:8080/api/v1/peliculas"
           }
         },
         {
-          "name": "Actualizar película",
+          "name": "Actualizar pelicula",
           "request": {
             "method": "PUT",
             "header": [
@@ -59,13 +59,13 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"titulo\": \"Scream\",\n  \"anio\": 1996,\n  \"duracion\": 111,\n  \"genero\": \"terror\",\n  \"sinopsis\": \"La historia sigue a Sidney Prescott, una joven acechada por Ghostface, un asesino enmascarado que utiliza las reglas de las películas de terror para aterrorizar a su grupo de amigos en un pequeño pueblo.\",\n  \"fechaEstreno\": 1996\n}"
+              "raw": "{\n  \"titulo\": \"Scream\",\n  \"anio\": 1996,\n  \"duracion\": 111,\n  \"genero\": \"terror\",\n  \"sinopsis\": \"La historia sigue a Sidney Prescott, una joven acechada por Ghostface, un asesino enmascarado que utiliza las reglas de las peliculas de terror para aterrorizar a su grupo de amigos en un pequeno pueblo.\",\n  \"fechaEstreno\": 1996\n}"
             },
             "url": "http://localhost:8080/api/v1/peliculas/1"
           }
         },
         {
-          "name": "Eliminar película",
+          "name": "Eliminar pelicula",
           "request": {
             "method": "DELETE",
             "url": "http://localhost:8080/api/v1/peliculas/1"
@@ -74,24 +74,24 @@
       ]
     },
     {
-      "name": "Reseñas",
+      "name": "Resenas",
       "item": [
         {
-          "name": "Listar reseñas",
+          "name": "Listar resenas",
           "request": {
             "method": "GET",
             "url": "http://localhost:8080/api/v1/resenas"
           }
         },
         {
-          "name": "Obtener reseña por ID",
+          "name": "Obtener resena por ID",
           "request": {
             "method": "GET",
             "url": "http://localhost:8080/api/v1/resenas/1"
           }
         },
         {
-          "name": "Crear reseña - Scream (Paolo)",
+          "name": "Crear resena - Scream (Paolo)",
           "request": {
             "method": "POST",
             "header": [
@@ -99,13 +99,13 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"calificacion\": 10,\n  \"comentario\": \"Muy buena peli, una de las mejores de su genero\",\n  \"fechaResena\": 2024,\n  \"usuario\": { \"id\": 1 },\n  \"pelicula\": { \"id\": 1 }\n}"
+              "raw": "{\n  \"calificacion\": 10,\n  \"comentario\": \"Muy buena peli, una de las mejores de su genero\",\n  \"fechaResena\": 20240521,\n  \"usuario\": { \"id\": 2 },\n  \"pelicula\": { \"id\": 1 }\n}"
             },
             "url": "http://localhost:8080/api/v1/resenas"
           }
         },
         {
-          "name": "Crear reseña - Memento (Alex)",
+          "name": "Crear resena - Memento (Alex)",
           "request": {
             "method": "POST",
             "header": [
@@ -113,12 +113,12 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"calificacion\": 10,\n  \"comentario\": \"En mi gusto personal es la mejor pelicula de Nolan\",\n  \"fechaResena\": 2024,\n  \"usuario\": { \"id\": 2 },\n  \"pelicula\": { \"id\": 2 }\n}"
+              "raw": "{\n  \"calificacion\": 10,\n  \"comentario\": \"En mi gusto personal es la mejor pelicula de Nolan\",\n  \"fechaResena\": 20240521,\n  \"usuario\": { \"id\": 3 },\n  \"pelicula\": { \"id\": 2 }\n}"
             },
             "url": "http://localhost:8080/api/v1/resenas"
           }
         },
-        {
+{
           "name": "Actualizar reseña",
           "request": {
             "method": "PUT",
@@ -127,13 +127,13 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"calificacion\": 9,\n  \"comentario\": \"Sigue siendo excelente, pero le bajo un punto\"\n}"
+              "raw": "{\n  \"calificacion\": 9,\n  \"comentario\": \"Sigue siendo excelente, pero le bajo un punto\",\n  \"fechaResena\": 20240521\n}"
             },
             "url": "http://localhost:8080/api/v1/resenas/1"
           }
         },
         {
-          "name": "Eliminar reseña",
+          "name": "Eliminar resena",
           "request": {
             "method": "DELETE",
             "url": "http://localhost:8080/api/v1/resenas/1"
@@ -220,14 +220,14 @@
       "name": "TMDB",
       "item": [
         {
-          "name": "Buscar película en TMDB",
+          "name": "Buscar pelicula en TMDB",
           "request": {
             "method": "GET",
             "url": "http://localhost:8080/api/v1/tmdb/buscar?query=Scream"
           }
         },
         {
-          "name": "Obtener detalle de película TMDB por ID",
+          "name": "Obtener detalle de pelicula TMDB por ID",
           "request": {
             "method": "GET",
             "url": "http://localhost:8080/api/v1/tmdb/pelicula/77"
