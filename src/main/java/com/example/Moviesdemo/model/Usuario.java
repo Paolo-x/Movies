@@ -46,6 +46,9 @@ public class Usuario {
 
     private Integer fechaRegistro;
 
+    @Column(nullable = false)
+    private String role = "ROLE_USER";
+
     @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true) // Si se borra el usuario, se borran sus reseñas
     @ToString.Exclude // Evita que el toString() cargue reseñas y cause problemas de rendimiento o loops
     @EqualsAndHashCode.Exclude // Evita que se incluyan reseñas en equals/hashCode
