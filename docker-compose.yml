@@ -1,0 +1,40 @@
+services:
+  mysql:
+    image: mysql:8.4
+    container_name: db_movies-mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+    ports:
+      - "${MYSQL_HOST_PORT}:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-p${MYSQL_ROOT_PASSWORD}"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: TMDB-app
+    depends_on:
+      mysql:
+        condition: service_healthy
+    environment:
+      SPRING_DATASOURCE_URL: ${DB_URL_DOCKER}
+      SPRING_DATASOURCE_USERNAME: ${DB_USERNAME}
+      SPRING_DATASOURCE_PASSWORD: ${DB_PASSWORD}
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+      SPRING_JPA_SHOW_SQL: "true"
+      JWT_SECRET: ${JWT_SECRET}
+      TMDB_API_KEY: ${TMDB_API_KEY}
+      TMDB_BASE_URL: ${TMDB_BASE_URL}
+    ports:
+      - "${APP_HOST_PORT}:8080"
+    restart: unless-stopped
+
+volumes:
+  mysql_data:
