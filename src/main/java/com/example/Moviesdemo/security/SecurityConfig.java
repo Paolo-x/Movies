@@ -33,25 +33,25 @@ public class SecurityConfig {
 
             // Reglas de autorización por ruta y método HTTP
             .authorizeHttpRequests(auth -> auth
-                // Endpoints de autenticación: públicos (no requieren token)
+                // Endpoints públicos (no requieren token)
                 .requestMatchers("/api/v1/auth/**").permitAll()
-
-                // Swagger UI y OpenAPI docs: públicos
                 .requestMatchers(
                     "/swagger-ui/**",
                     "/swagger-ui.html",
                     "/v3/api-docs/**"
                 ).permitAll()
 
-                // Lectura (GET): cualquier usuario autenticado (USER o ADMIN)
-                .requestMatchers(HttpMethod.GET, "/api/v1/**").hasAnyRole("USER", "ADMIN")
+                // TMDB: ambos roles pueden consultar la API externa
+                .requestMatchers("/api/v1/tmdb/**").hasAnyRole("USER", "ADMIN")
 
-                // Escritura (POST, PUT, DELETE): solo ADMIN
-                .requestMatchers(HttpMethod.POST, "/api/v1/**").hasRole("ADMIN")
-                .requestMatchers(HttpMethod.PUT, "/api/v1/**").hasRole("ADMIN")
-                .requestMatchers(HttpMethod.DELETE, "/api/v1/**").hasRole("ADMIN")
+                // Peliculas y Usuarios: solo ADMIN
+                .requestMatchers("/api/v1/peliculas/**").hasRole("ADMIN")
+                .requestMatchers("/api/v1/usuarios/**").hasRole("ADMIN")
 
-                // Cualquier otra ruta requiere autenticación
+                // Resenas: USER puede crear, ambos pueden modificar/eliminar
+                .requestMatchers(HttpMethod.POST, "/api/v1/resenas/**").hasRole("USER")
+                .requestMatchers("/api/v1/resenas/**").hasAnyRole("USER", "ADMIN")
+
                 .anyRequest().authenticated()
             )
 

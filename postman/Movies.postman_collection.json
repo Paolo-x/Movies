@@ -9,7 +9,7 @@
       "name": "Auth",
       "item": [
         {
-          "name": "Register - paolo / 12345678",
+          "name": "Register User",
           "request": {
             "method": "POST",
             "header": [
@@ -23,7 +23,7 @@
           }
         },
         {
-          "name": "Login - paolo / 12345678",
+          "name": "Login User",
           "request": {
             "method": "POST",
             "header": [
@@ -34,7 +34,49 @@
               "raw": "{\n  \"username\": \"paolo\",\n  \"password\": \"12345678\"\n}"
             },
             "url": "http://localhost:8080/api/v1/auth/login"
-          }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "if (pm.response.code === 200) {",
+                  "    var json = pm.response.json();",
+                  "    pm.collectionVariables.set(\"user_token\", json.token);",
+                  "}"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ]
+        },
+        {
+          "name": "Login Admin",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"username\": \"Admin1\",\n  \"password\": \"Admin123\"\n}"
+            },
+            "url": "http://localhost:8080/api/v1/auth/login"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "if (pm.response.code === 200) {",
+                  "    var json = pm.response.json();",
+                  "    pm.collectionVariables.set(\"admin_token\", json.token);",
+                  "}"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ]
         }
       ]
     },
@@ -45,6 +87,9 @@
           "name": "Listar peliculas",
           "request": {
             "method": "GET",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{admin_token}}" }
+            ],
             "url": "http://localhost:8080/api/v1/peliculas"
           }
         },
@@ -52,6 +97,9 @@
           "name": "Obtener pelicula por ID",
           "request": {
             "method": "GET",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{admin_token}}" }
+            ],
             "url": "http://localhost:8080/api/v1/peliculas/{{pelicula_id_ejemplo}}"
           }
         },
@@ -60,7 +108,8 @@
           "request": {
             "method": "POST",
             "header": [
-              { "key": "Content-Type", "value": "application/json" }
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{admin_token}}" }
             ],
             "body": {
               "mode": "raw",
@@ -74,7 +123,8 @@
           "request": {
             "method": "POST",
             "header": [
-              { "key": "Content-Type", "value": "application/json" }
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{admin_token}}" }
             ],
             "body": {
               "mode": "raw",
@@ -88,7 +138,8 @@
           "request": {
             "method": "PUT",
             "header": [
-              { "key": "Content-Type", "value": "application/json" }
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{admin_token}}" }
             ],
             "body": {
               "mode": "raw",
@@ -101,6 +152,9 @@
           "name": "Eliminar pelicula",
           "request": {
             "method": "DELETE",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{admin_token}}" }
+            ],
             "url": "http://localhost:8080/api/v1/peliculas/{{pelicula_id_ejemplo}}"
           }
         }
@@ -113,6 +167,9 @@
           "name": "Listar resenas",
           "request": {
             "method": "GET",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{user_token}}" }
+            ],
             "url": "http://localhost:8080/api/v1/resenas"
           }
         },
@@ -120,6 +177,9 @@
           "name": "Obtener resena por ID",
           "request": {
             "method": "GET",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{user_token}}" }
+            ],
             "url": "http://localhost:8080/api/v1/resenas/{{resena_id_ejemplo}}"
           }
         },
@@ -128,11 +188,12 @@
           "request": {
             "method": "POST",
             "header": [
-              { "key": "Content-Type", "value": "application/json" }
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{user_token}}" }
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"calificacion\": 10,\n  \"comentario\": \"Muy buena peli, una de las mejores de su genero\",\n  \"fechaResena\": 20240521,\n  \"usuario\": { \"id\": {{usuario_id_ejemplo}} },\n  \"pelicula\": { \"id\": {{pelicula_id_ejemplo}} }\n}"
+              "raw": "{\n  \"calificacion\": 10,\n  \"comentario\": \"QUe buena peli jajaj\",\n  \"fechaResena\": 20240521,\n  \"usuario\": { \"id\": {{usuario_id_ejemplo}} },\n  \"pelicula\": { \"id\": {{pelicula_id_ejemplo}} }\n}"
             },
             "url": "http://localhost:8080/api/v1/resenas"
           }
@@ -142,7 +203,8 @@
           "request": {
             "method": "PUT",
             "header": [
-              { "key": "Content-Type", "value": "application/json" }
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{user_token}}" }
             ],
             "body": {
               "mode": "raw",
@@ -155,6 +217,9 @@
           "name": "Eliminar resena",
           "request": {
             "method": "DELETE",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{user_token}}" }
+            ],
             "url": "http://localhost:8080/api/v1/resenas/{{resena_id_ejemplo}}"
           }
         }
@@ -167,6 +232,9 @@
           "name": "Listar usuarios",
           "request": {
             "method": "GET",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{admin_token}}" }
+            ],
             "url": "http://localhost:8080/api/v1/usuarios"
           }
         },
@@ -174,15 +242,19 @@
           "name": "Obtener usuario por ID",
           "request": {
             "method": "GET",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{admin_token}}" }
+            ],
             "url": "http://localhost:8080/api/v1/usuarios/{{usuario_id_ejemplo}}"
           }
         },
         {
-          "name": "Crear usuario - Paolo",
+          "name": "Crear usuario",
           "request": {
             "method": "POST",
             "header": [
-              { "key": "Content-Type", "value": "application/json" }
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{admin_token}}" }
             ],
             "body": {
               "mode": "raw",
@@ -196,7 +268,8 @@
           "request": {
             "method": "PUT",
             "header": [
-              { "key": "Content-Type", "value": "application/json" }
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{admin_token}}" }
             ],
             "body": {
               "mode": "raw",
@@ -209,6 +282,9 @@
           "name": "Eliminar usuario por username",
           "request": {
             "method": "DELETE",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{admin_token}}" }
+            ],
             "url": "http://localhost:8080/api/v1/usuarios/username/{{usuario_username_ejemplo}}"
           }
         },
@@ -216,6 +292,9 @@
           "name": "Eliminar usuario por correo",
           "request": {
             "method": "DELETE",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{admin_token}}" }
+            ],
             "url": "http://localhost:8080/api/v1/usuarios/correo/{{usuario_correo_ejemplo}}"
           }
         }
@@ -228,6 +307,9 @@
           "name": "Buscar pelicula en TMDB",
           "request": {
             "method": "GET",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{user_token}}" }
+            ],
             "url": "http://localhost:8080/api/v1/tmdb/buscar?query=Scream"
           }
         },
@@ -235,6 +317,9 @@
           "name": "Obtener detalle de pelicula TMDB por ID",
           "request": {
             "method": "GET",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{user_token}}" }
+            ],
             "url": "http://localhost:8080/api/v1/tmdb/pelicula/77"
           }
         }
@@ -245,8 +330,10 @@
     { "key": "usuario_id_ejemplo", "value": "1", "type": "string" },
     { "key": "pelicula_id_ejemplo", "value": "1", "type": "string" },
     { "key": "resena_id_ejemplo", "value": "1", "type": "string" },
-    { "key": "usuario_username_ejemplo", "value": "Paolo", "type": "string" },
-    { "key": "usuario_correo_ejemplo", "value": "paolo.munozm@duocuc.cl", "type": "string" },
-    { "key": "usuario_contrasena_ejemplo", "value": "nuevaContrasena12333333", "type": "string" }
+    { "key": "usuario_username_ejemplo", "value": "josebas", "type": "string" },
+    { "key": "usuario_correo_ejemplo", "value": "josebas@hotmail.com", "type": "string" },
+    { "key": "usuario_contrasena_ejemplo", "value": "Jose123456f", "type": "string" },
+    { "key": "user_token", "value": "", "type": "string" },
+    { "key": "admin_token", "value": "", "type": "string" }
   ]
 }
