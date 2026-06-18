@@ -1,6 +1,7 @@
 package com.example.Moviesdemo.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,7 +19,17 @@ public class UsuarioService {
     @Autowired
     private UsuarioRepository usuarioRepository;
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
     public UsuarioResponseDTO agregarUsuario(Usuario usuario){
+        if (usuario.getRole() == null) {
+            usuario.setRole("ROLE_USER");
+        }
+        if (usuario.getFechaRegistro() == null) {
+            usuario.setFechaRegistro(2026);
+        }
+        usuario.setContrasena(passwordEncoder.encode(usuario.getContrasena()));
         return mapearADTO(usuarioRepository.save(usuario));
     }
 
@@ -52,7 +63,7 @@ public class UsuarioService {
 
        usuario.setUsername(usuarioActualizado.getUsername());
        usuario.setCorreo(usuarioActualizado.getCorreo());
-       usuario.setContrasena(usuarioActualizado.getContrasena());
+       usuario.setContrasena(passwordEncoder.encode(usuarioActualizado.getContrasena()));
 
         return mapearADTO(usuarioRepository.save(usuario));
     }
