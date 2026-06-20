@@ -41,11 +41,14 @@ public class SecurityConfig {
                     "/v3/api-docs/**"
                 ).permitAll()
 
-                // TMDB: ambos roles pueden consultar la API externa
-                .requestMatchers("/api/v1/tmdb/**").hasAnyRole("USER", "ADMIN")
+                // TMDB: público (cualquiera puede buscar peliculas)
+                .requestMatchers("/api/v1/tmdb/**").permitAll()
 
-                // Peliculas y Usuarios: solo ADMIN
+                // Peliculas: solo listar es público, el resto admin
+                .requestMatchers(HttpMethod.GET, "/api/v1/peliculas").permitAll()
                 .requestMatchers("/api/v1/peliculas/**").hasRole("ADMIN")
+
+                // Usuarios: solo ADMIN
                 .requestMatchers("/api/v1/usuarios/**").hasRole("ADMIN")
 
                 // Resenas: USER puede crear, ambos pueden modificar/eliminar
