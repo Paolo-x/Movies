@@ -3,3 +3,8 @@ target/
 *.class
 *.jar
 *.log
+
+# Local environment secrets
+.env
+.env.*
+!.env.example
